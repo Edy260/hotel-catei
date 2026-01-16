@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <title>Rezervare - Hotel pentru Căței</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="rezervare">
+
+<nav class="navbar">
+    <div class="logo">🐶 Hotel Căței</div>
+    <ul>
+        <li><a href="index.html">Acasă</a></li>
+        <li><a href="servicii.html">Servicii</a></li>
+        <li><a href="galerie.html">Galerie</a></li>
+        <li><a href="rezervare.html" class="active">Rezervare</a></li>
+    </ul>
+</nav>
+
+<section class="container glass-section">
+    <h2>Rezervare online</h2>
+
+    <form class="form" onsubmit="trimiteWhatsApp(event)">
+        <input type="text" id="nume" placeholder="Nume" required>
+        <input type="tel" id="telefon" placeholder="Telefon" required>
+        <input type="date" id="start" required>
+        <input type="date" id="end" required>
+        <textarea id="mesaj" placeholder="Detalii despre cățel"></textarea>
+        <button type="submit">Trimite pe WhatsApp</button>
+    </form>
+</section>
+
+<script>
+function trimiteWhatsApp(e) {
+    e.preventDefault();
+
+    let nume = document.getElementById("nume").value;
+    let telefon = document.getElementById("telefon").value;
+    let start = document.getElementById("start").value;
+    let end = document.getElementById("end").value;
+    let mesaj = document.getElementById("mesaj").value;
+
+    let text = `Salut! Vreau o rezervare:
+Nume: ${nume}
+Telefon: ${telefon}
+Perioada: ${start} - ${end}
+Detalii: ${mesaj}`;
+
+    let url = "https://wa.me/40735626065?text=" + encodeURIComponent(text);
+    window.open(url, "_blank");
+}
+</script>
+
+</body>
+</html>
