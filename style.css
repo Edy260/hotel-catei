@@ -1365,3 +1365,200 @@ body.servicii-page{
   background: url("images/dog1.jpg") center / cover no-repeat fixed !important;
   min-height: 100vh;
 }
+/* =========================
+   MOBILE FIRST HELPERS
+========================= */
+img { max-width: 100%; height: auto; display: block; }
+* { box-sizing: border-box; }
+
+.container,
+.dog-pricing__wrap,
+.dog-signature__wrap{
+  width: min(1120px, calc(100% - 32px));
+  margin: 0 auto;
+}
+
+/* =========================
+   NAVBAR RESPONSIVE
+========================= */
+@media (max-width: 720px){
+  body{ padding-top: 92px; } /* daca ai navbar fixed */
+
+  .navbar{
+    height: auto;
+    padding: 10px 14px;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .navbar .logo{
+    font-size: 1.05rem;
+    font-weight: 800;
+    text-align: center;
+  }
+
+  .navbar ul{
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 0;
+    margin: 0;
+  }
+
+  .navbar ul li a{
+    padding: 8px 12px;
+    border-radius: 999px;
+    font-size: 0.95rem;
+  }
+}
+
+/* =========================
+   HERO (Acasa) RESPONSIVE
+========================= */
+@media (max-width: 720px){
+  .hero.hero-top{
+    min-height: 56vh;
+    padding-top: 110px; /* sub navbar */
+    padding-bottom: 22px;
+  }
+
+  .hero-card{
+    width: min(560px, calc(100% - 24px));
+    padding: 18px 16px; /* daca ai padding in card */
+  }
+
+  .hero-card h1{ font-size: 1.7rem; }
+  .hero-card p{ font-size: 1rem; }
+
+  .btn{
+    width: 100%;
+    text-align: center;
+    padding: 12px 16px;
+  }
+}
+
+/* =========================
+   DOG SIGNATURE RESPONSIVE
+========================= */
+@media (max-width: 720px){
+  .dog-signature{ padding: 42px 0 58px; }
+
+  .dog-signature__top{
+    flex-direction: column;
+    gap: 14px;
+    padding: 18px 16px;
+    border-radius: 20px;
+  }
+
+  .dog-signature__cta{
+    width: 100%;
+    justify-content: center;
+  }
+
+  .dog-signature__grid{
+    grid-template-columns: 1fr !important;
+    gap: 12px;
+  }
+
+  .dog-chip{ padding: 16px 14px; }
+}
+
+/* =========================
+   TARIFE (PRICING) RESPONSIVE
+========================= */
+@media (max-width: 980px){
+  .dog-pricing__grid{ grid-template-columns: 1fr !important; }
+}
+
+@media (max-width: 720px){
+  .dog-pricing{ padding: 44px 0 58px; }
+
+  .dog-pricing__head{
+    padding: 16px 16px;
+    border-radius: 18px;
+  }
+
+  .price-box{
+    padding: 16px 14px;
+    border-radius: 18px;
+  }
+
+  .price-row{
+    gap: 10px;
+    font-size: 0.98rem;
+  }
+
+  .desc{ font-size: 0.93rem; }
+  .price-btn{ width: 100%; }
+}
+
+/* =========================
+   SERVICII PAGE RESPONSIVE
+========================= */
+@media (max-width: 720px){
+  body.servicii-page{
+    padding-top: 92px; /* sub navbar fixed */
+  }
+
+  .services-wrapper{
+    padding-top: 28px;
+    padding-bottom: 70px;
+    gap: 28px;
+  }
+
+  .services-box{
+    width: calc(100% - 24px);
+    padding: 18px 14px;
+    border-radius: 20px;
+  }
+
+  .services-box h2{
+    font-size: 1.25rem;
+    margin-bottom: 16px;
+  }
+
+  .services-grid{
+    grid-template-columns: 1fr !important;
+    gap: 12px;
+  }
+
+  .service-card{
+    padding: 14px 12px;
+    border-radius: 16px;
+  }
+}
+
+/* =========================
+   GALERIE RESPONSIVE
+========================= */
+@media (max-width: 720px){
+  .gallery{
+    display: grid;
+    grid-template-columns: 1fr !important;
+    gap: 12px;
+  }
+
+  .gallery img{
+    border-radius: 18px;
+  }
+}
+
+/* =========================
+   REZERVARE RESPONSIVE
+========================= */
+@media (max-width: 720px){
+  .form{
+    width: calc(100% - 24px);
+    padding: 16px 14px;
+    border-radius: 18px;
+  }
+
+  .form input,
+  .form textarea,
+  .form button{
+    width: 100%;
+    font-size: 1rem;
+  }
+}
