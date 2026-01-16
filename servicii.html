@@ -10,7 +10,8 @@
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body class="servicii">
+<body class="servicii-page">
+
 
 <!-- NAVBAR -->
 <nav class="navbar">
@@ -25,29 +26,199 @@
 
 <!-- SERVICII PRINCIPALE -->
 <section class="container services-section">
-    <h2>Serviciile noastre</h2>
+  <h2>Serviciile noastre</h2>
 
-    <div class="cards">
-        <div class="card">🐶 Cazare confortabilă</div>
-        <div class="card">🍖 Hrănire personalizată</div>
-        <div class="card">🚶 Plimbări zilnice</div>
-        <div class="card">🎾 Joacă și atenție</div>
-    </div>
+  <div class="cards service-accordion" id="servicii-accordion">
+    <!-- 1 -->
+    <article class="service-item">
+      <button class="service-btn" type="button" aria-expanded="false">
+        🐶 Cazare confortabilă
+      </button>
+      <div class="service-panel" aria-hidden="true">
+        <div class="service-panel__inner">
+          <p>
+            Camere curate, spațioase și liniștite, cu așternuturi confortabile.
+            Cățelul tău se odihnește în siguranță, într-un mediu calm și supravegheat.
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <!-- 2 -->
+    <article class="service-item">
+      <button class="service-btn" type="button" aria-expanded="false">
+        🍖 Hrănire personalizată
+      </button>
+      <div class="service-panel" aria-hidden="true">
+        <div class="service-panel__inner">
+          <p>
+            Respectăm rutina de acasă: cantități, ore, tip de hrană și preferințe.
+            Dacă are un regim special, îl urmăm exact (conform indicațiilor tale).
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <!-- 3 -->
+    <article class="service-item">
+      <button class="service-btn" type="button" aria-expanded="false">
+        🚶 Plimbări zilnice
+      </button>
+      <div class="service-panel" aria-hidden="true">
+        <div class="service-panel__inner">
+          <p>
+            Plimbări zilnice adaptate energiei și vârstei. Cățelul face mișcare,
+            își consumă energia și rămâne echilibrat pe durata șederii.
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <!-- 4 -->
+    <article class="service-item">
+      <button class="service-btn" type="button" aria-expanded="false">
+        🎾 Joacă și atenție
+      </button>
+      <div class="service-panel" aria-hidden="true">
+        <div class="service-panel__inner">
+          <p>
+            Jocuri, interacțiune și atenție zilnică. Ne asigurăm că fiecare cățel
+            primește timp de calitate și se simte „ca acasă”.
+          </p>
+        </div>
+      </div>
+    </article>
+  </div>
 </section>
+
 
 <!-- ALTE SERVICII -->
 <section class="container services-section">
-    <h2>Alte Servicii</h2>
+  <h2>Alte Servicii</h2>
 
-    <div class="cards">
-        <div class="card">🛁 Spălat & igienizare</div>
-        <div class="card">✂️ Periat & îngrijire blană</div>
-        <div class="card">🏥 Administrare tratament (la cerere)</div>
-        <div class="card">📸 Poze & update-uri zilnice</div>
-        <div class="card">🚗 Serviciu de transport (preluare & livrare)</div>
-        <div class="card">📹 Camere video – monitorizare 24/7</div>
-    </div>
+  <div class="cards service-accordion" id="alte-accordion">
+    <article class="service-item">
+      <button class="service-btn" type="button" aria-expanded="false">
+        🛁 Spălat & igienizare
+      </button>
+      <div class="service-panel" aria-hidden="true">
+        <div class="service-panel__inner">
+          <p>
+            La cerere, îl împrospătăm înainte de plecare: curățare blândă și igienizare,
+            potrivită pentru pielea și blana lui.
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <article class="service-item">
+      <button class="service-btn" type="button" aria-expanded="false">
+        ✂️ Periat & îngrijire blană
+      </button>
+      <div class="service-panel" aria-hidden="true">
+        <div class="service-panel__inner">
+          <p>
+            Periaj regulat pentru o blană curată, fără noduri și cu aspect îngrijit.
+            Ideal pentru rase cu blană mai lungă.
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <article class="service-item">
+      <button class="service-btn" type="button" aria-expanded="false">
+        🏥 Administrare tratament (la cerere)
+      </button>
+      <div class="service-panel" aria-hidden="true">
+        <div class="service-panel__inner">
+          <p>
+            Urmăm indicațiile tale pentru tratamente simple (pastile/sirop).
+            Totul cu grijă, răbdare și notițe clare.
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <article class="service-item">
+      <button class="service-btn" type="button" aria-expanded="false">
+        📸 Poze & update-uri zilnice
+      </button>
+      <div class="service-panel" aria-hidden="true">
+        <div class="service-panel__inner">
+          <p>
+            Primești poze și mesaje ca să vezi cum se simte. Îți trimitem update-uri
+            despre masă, joacă și starea lui generală.
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <article class="service-item">
+      <button class="service-btn" type="button" aria-expanded="false">
+        🚗 Transport (preluare & livrare)
+      </button>
+      <div class="service-panel" aria-hidden="true">
+        <div class="service-panel__inner">
+          <p>
+            Preluăm cățelul de la tine și îl aducem înapoi în siguranță. Perfect când
+            nu ai timp sau vrei confort maxim.
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <article class="service-item">
+      <button class="service-btn" type="button" aria-expanded="false">
+        📹 Camere video – monitorizare 24/7
+      </button>
+      <div class="service-panel" aria-hidden="true">
+        <div class="service-panel__inner">
+          <p>
+            Pentru extra liniște, poți avea acces la camere (în funcție de disponibilitate).
+            Vezi cățelul și știi că este bine.
+          </p>
+        </div>
+      </div>
+    </article>
+  </div>
 </section>
+
+<script>
+  function setupAccordion(rootId){
+    const root = document.getElementById(rootId);
+    if(!root) return;
+
+    const items = root.querySelectorAll(".service-item");
+
+    items.forEach(item => {
+      const btn = item.querySelector(".service-btn");
+      const panel = item.querySelector(".service-panel");
+
+      btn.addEventListener("click", () => {
+        const isOpen = item.classList.contains("open");
+
+        // inchide toate (premium + curat)
+        items.forEach(i => {
+          i.classList.remove("open");
+          const b = i.querySelector(".service-btn");
+          const p = i.querySelector(".service-panel");
+          b.setAttribute("aria-expanded", "false");
+          p.setAttribute("aria-hidden", "true");
+        });
+
+        // daca nu era deschis, deschide-l pe acesta
+        if(!isOpen){
+          item.classList.add("open");
+          btn.setAttribute("aria-expanded", "true");
+          panel.setAttribute("aria-hidden", "false");
+        }
+      });
+    });
+  }
+
+  setupAccordion("servicii-accordion");
+  setupAccordion("alte-accordion");
+</script>
 
 </body>
 </html>

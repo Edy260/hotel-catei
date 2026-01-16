@@ -1152,3 +1152,216 @@ body {
   width: min(820px, calc(100% - 40px));
   margin: 0 auto;
 }
+/* ====== SERVICES: mai inchis + premium ====== */
+.services-section {
+  /* cadranul mare */
+  background: rgba(10, 12, 16, 0.55);          /* mai inchis */
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.55);
+  border-radius: 26px;
+  padding: 34px 26px;
+}
+
+/* titlurile din cadran */
+.services-section h2 {
+  color: rgba(255,255,255,0.92);
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-shadow: 0 12px 30px rgba(0,0,0,0.45);
+  margin-bottom: 22px;
+}
+
+/* grid (daca ai .cards) */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+@media (max-width: 980px){
+  .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 520px){
+  .cards { grid-template-columns: 1fr; }
+}
+
+/* cardurile (cele albe) -> premium glass dark */
+.card {
+  background: rgba(255, 255, 255, 0.10);      /* NU alb */
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: rgba(255, 255, 255, 0.92);
+
+  border-radius: 18px;
+  padding: 18px 16px;
+
+  box-shadow:
+    0 12px 30px rgba(0,0,0,0.35),
+    inset 0 1px 0 rgba(255,255,255,0.08);
+
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+  cursor: default;
+
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+}
+
+/* emoji/icon mai “premium” */
+.card span,
+.card .icon {
+  font-size: 1.15rem;
+  opacity: 0.95;
+}
+
+/* hover premium */
+.card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 152, 0, 0.35);
+  box-shadow:
+    0 18px 55px rgba(0,0,0,0.50),
+    0 0 0 6px rgba(255, 152, 0, 0.08);
+}
+
+/* click */
+.card:active {
+  transform: translateY(-1px) scale(0.99);
+}
+body.home::before{
+  content:"";
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  pointer-events: none;
+  z-index: 0;
+}
+body.home > * { position: relative; z-index: 1; }
+/* ====== Service accordion (slide) ====== */
+.service-item{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* butonul arată ca un card premium */
+.service-btn{
+  width: 100%;
+  text-align: left;
+
+  background: rgba(255,255,255,0.10);
+  border: 1px solid rgba(255,255,255,0.14);
+  color: rgba(255,255,255,0.92);
+
+  border-radius: 18px;
+  padding: 18px 16px;
+  font-family: "Inter", sans-serif;
+  font-weight: 700;
+
+  box-shadow:
+    0 12px 30px rgba(0,0,0,0.35),
+    inset 0 1px 0 rgba(255,255,255,0.08);
+
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  cursor: pointer;
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+
+.service-btn:hover{
+  transform: translateY(-3px);
+  border-color: rgba(255, 152, 0, 0.35);
+  box-shadow:
+    0 18px 55px rgba(0,0,0,0.50),
+    0 0 0 6px rgba(255, 152, 0, 0.08);
+}
+
+.service-btn:active{
+  transform: translateY(-1px) scale(0.99);
+}
+
+/* panelul care se deschide */
+.service-panel{
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 260ms ease;
+}
+
+.service-panel__inner{
+  margin-top: -2px;
+  padding: 14px 16px;
+
+  background: rgba(10, 12, 16, 0.50);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 16px;
+
+  color: rgba(255,255,255,0.88);
+  line-height: 1.55;
+
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  box-shadow: 0 14px 40px rgba(0,0,0,0.45);
+}
+
+/* starea deschis */
+.service-item.open .service-panel{
+  max-height: 220px; /* destul pentru 2-4 randuri */
+}
+
+.service-item.open .service-btn{
+  border-color: rgba(255, 152, 0, 0.38);
+}
+/* Navbar mereu sus, peste tot */
+.navbar{
+  position: sticky;   /* sau fixed (vezi mai jos) */
+  top: 0;
+  z-index: 9999;
+}
+
+/* Evita orice impingere de sus */
+html, body{
+  margin: 0;
+  padding: 0;
+}
+
+/* Dacă ai o secțiune sus care are margin-top, o anulăm */
+body > section:first-of-type,
+body > header:first-of-type{
+  margin-top: 0;
+}
+/* Pagina Servicii – poziționare pe verticală */
+.services-page{
+  min-height: 100vh;
+  display: flex;
+  align-items: center;      /* centru vertical */
+  justify-content: center;  /* centru orizontal */
+  padding-top: 120px;       /* coboară sub navbar */
+  padding-bottom: 120px;
+}
+
+/* Cardul mare cu servicii */
+.services-wrapper{
+  width: 100%;
+  max-width: 1100px;
+}
+.services-page{
+  margin-top: 140px; /* ajustează: 100–180px */
+}
+/* Pagina Servicii: coboară secțiunile */
+body.servicii-page .services-section{
+  margin-top: 140px;         /* coboară prima secțiune */
+}
+
+body.servicii-page .services-section + .services-section{
+  margin-top: 40px;         /* distanță între cele două cadrane */
+}
+/* ===== FIX: BACKGROUND SERVICII (fortat) ===== */
+body.servicii-page{
+  background: url("images/dog1.jpg") center / cover no-repeat fixed !important;
+  min-height: 100vh;
+}
