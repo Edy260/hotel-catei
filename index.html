@@ -12,34 +12,41 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body class="home">
 
-  <!-- NAVBAR -->
-  <nav class="navbar">
-  <div class="navbar-inner">
+<nav class="navbar">
+  <div class="nav-inner">
 
-    <!-- Stânga: Contact -->
-    <div class="nav-info">
-     <span class="nav-item">
-  📍
-  <a
-    href="https://www.google.com/maps/search/?api=1&query=Strada+Decebal+nr+2"
-    target="_blank"
-    rel="noopener"
-  >
-    Str. Decebal nr. 2
-  </a>
-</span>
+    <!-- Stânga: Telefon + Locație -->
+    <div class="nav-left">
+      <a class="nav-pill" href="tel:+40735626065" title="Sună">
+        <span class="nav-ico">📞</span>
+        <span>0735 626 065</span>
+      </a>
 
+      <a class="nav-pill" target="_blank" rel="noopener"
+         href="https://www.google.com/maps/search/?api=1&query=DN4%20184"
+
+         title="Deschide în Google Maps">
+        <span class="nav-ico">📍</span>
+        <span>DN4 184</span>
+      </a>
     </div>
 
-    <!-- Mijloc: Logo -->
-    <div class="logo">🐶 Hotel Căței</div>
+    <!-- Mijloc: Logo premium + nume -->
+    <a class="nav-brand" href="index.html" aria-label="Hotel Căței - Acasă">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-text">
+        <span class="brand-title">Hotel</span>
+        <span class="brand-title brand-title--accent">Căței</span>
+      </span>
+    </a>
 
     <!-- Dreapta: Meniu -->
-    <ul class="nav-links">
+    <ul class="nav-menu">
       <li><a href="index.html">Acasă</a></li>
       <li><a href="servicii.html">Servicii</a></li>
       <li><a href="galerie.html">Galerie</a></li>
@@ -48,6 +55,7 @@
 
   </div>
 </nav>
+
 
 
   <!-- 1) SUS: SECTIUNEA "CA ACASA" (dog-signature) -->
@@ -209,7 +217,8 @@
             </div>
             <p class="desc">Pentru cei mai pretențioși: confort extra + atenție suplimentară.</p>
 
-            <a class="price-btn" href="rezervare.html">Vezi disponibilitatea</a>
+            <a class="price-btn" href="disponibilitate.html">Verifică disponibilitatea</a>
+
           </div>
         </div>
 
@@ -293,163 +302,12 @@
   </header>
 
   <script>
-    // navbar scrolled effect
-    window.addEventListener("scroll", () => {
-      document.body.classList.toggle("scrolled", window.scrollY > 20);
-    });
-
-    // animatie aparitie dog-signature
-    const ds = document.querySelector(".dog-signature");
-    if (ds) {
-      const obs = new IntersectionObserver(([e]) => {
-        if (e.isIntersecting) ds.classList.add("in");
-      }, { threshold: 0.15 });
-      obs.observe(ds);
-    }
-
-    // WhatsApp - Contact (dog-signature)
-    const btnContact = document.getElementById("btn-contact-whatsapp");
-    if (btnContact) {
-      btnContact.addEventListener("click", (e) => {
-        e.preventDefault();
-        const phone = "40735626065";
-        const text =
-          `Salut! Vreau mai multe detalii despre cazare pentru cățel.\n\n` +
-          `• Nume: \n` +
-          `• Talie / rasă: \n` +
-          `• Perioada dorită: \n` +
-          `• Alte detalii: `;
-        window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`, "_blank");
-      });
-    }
-
-    // WhatsApp - Tarife
-    const btnTarife = document.getElementById("btn-tarife-whatsapp");
-    if (btnTarife) {
-      btnTarife.addEventListener("click", (e) => {
-        e.preventDefault();
-        const phone = "40735626065";
-        const text =
-          `Salut! Aș dori o ofertă pentru cazare câine.\n\n` +
-          `• Tip cameră (Standard/Confort/Premium/VIP): \n` +
-          `• Perioada: \n` +
-          `• Talie / rasă: \n` +
-          `• Transport? (da/nu): \n` +
-          `• Alte detalii: `;
-        window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`, "_blank");
-      });
-    }
+   
   </script>
-<footer class="site-footer">
-  <div class="footer-wrap">
+<div id="footer-placeholder"></div>
 
-    <!-- BRAND -->
-    <div class="footer-col brand">
-      <div class="footer-logo">🐶 Hotel Căței</div>
-      <p class="footer-desc">
-        Regim hotelier pentru căței, cu grijă, confort și siguranță. Update-uri zilnice, opțional camere video și transport.
-      </p>
 
-      <a class="footer-cta" href="#" id="footer-whatsapp">
-        Contact pe WhatsApp
-        <span class="footer-cta-glow" aria-hidden="true"></span>
-      </a>
-
-      <div class="footer-social">
-        <a href="#" aria-label="Instagram" title="Instagram">⌁</a>
-        <a href="#" aria-label="Facebook" title="Facebook">f</a>
-        <a href="#" aria-label="TikTok" title="TikTok">♪</a>
-      </div>
-    </div>
-
-    <!-- LINKURI -->
-    <div class="footer-col links">
-      <h4>Linkuri rapide</h4>
-      <ul>
-        <li><a href="index.html">Acasă</a></li>
-        <li><a href="servicii.html">Servicii</a></li>
-        <li><a href="galerie.html">Galerie</a></li>
-        <li><a href="rezervare.html">Rezervare</a></li>
-      </ul>
-    </div>
-
-    <!-- INFO -->
-    <div class="footer-col info">
-      <h4>Informații</h4>
-      <div class="info-card">
-        <div class="info-row">
-          <span class="k">📍 Locație</span>
-          <span class="v">
-            <a target="_blank" rel="noopener"
-              href="https://www.google.com/maps/search/?api=1&query=Strada+Decebal+nr+2">
-              Str. Decebal nr. 2
-            </a>
-          </span>
-        </div>
-        <div class="info-row">
-          <span class="k">📞 Telefon</span>
-          <span class="v"><a href="tel:+40735626065">0735 626 065</a></span>
-        </div>
-        <div class="info-row">
-          <span class="k">🕒 Program</span>
-          <span class="v">09:00 – 20:00</span>
-        </div>
-      </div>
-
-      <p class="small-links">
-        <a href="#">Politică de confidențialitate</a> •
-        <a href="#">Termeni & condiții</a> •
-        <a href="#">Cookies</a>
-      </p>
-    </div>
-
-    <!-- NEWSLETTER -->
-    <div class="footer-col newsletter">
-      <h4>Noutăți & oferte</h4>
-      <p class="muted">Primești ocazional update-uri (fără spam). Doar lucruri utile.</p>
-
-      <form class="footer-form" onsubmit="return false;">
-        <input type="email" placeholder="Email" aria-label="Email">
-        <label class="check">
-          <input type="checkbox">
-          Accept Termeni & condiții
-        </label>
-        <button type="button" class="footer-btn">Abonează-te</button>
-      </form>
-
-      <div class="footer-badge">
-        <span>🐾 Premium care</span>
-        <span>🧼 Igienă zilnică</span>
-        <span>🚗 Transport</span>
-      </div>
-    </div>
-
-  </div>
-
-  <div class="footer-bottom">
-    <p>© <span id="year"></span> Hotel Căței • Toate drepturile rezervate.</p>
-  </div>
-</footer>
-
-<script>
-  // an curent
-  document.getElementById("year").textContent = new Date().getFullYear();
-
-  // WhatsApp footer
-  const footerBtn = document.getElementById("footer-whatsapp");
-  if (footerBtn) {
-    footerBtn.addEventListener("click", (e) => {
-      e.preventDefault();
-      const phone = "40735626065";
-      const text =
-        `Salut! Aș vrea mai multe detalii despre cazare pentru cățel.\n\n` +
-        `• Perioada: \n` +
-        `• Talie / rasă: \n` +
-        `• Alte detalii: `;
-      window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`, "_blank");
-    });
-  }
-</script>
+<script src="app.js" defer></script>
 
 </body>
 </html>
