@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Disponibilitate camere</title>
+
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+
+  <style>
+    /* layout simplu pentru pagină */
+    .page-wrap{max-width:1100px;margin:0 auto;padding:24px 16px;}
+    .avail-card{padding:16px;border-radius:18px;background:rgba(0,0,0,.04);}
+    .avail-controls{display:flex;gap:12px;flex-wrap:wrap;align-items:end;}
+    .avail-controls label{display:flex;flex-direction:column;gap:6px;font-size:14px;opacity:.9}
+    .avail-controls input[type="date"]{padding:10px 12px;border-radius:12px;border:1px solid rgba(0,0,0,.15);background:#fff}
+
+    /* grid cu camere */
+    .room-grid{
+      margin-top:16px;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+      gap:14px;
+    }
+
+    .room-card{
+      background:#fff;
+      border:1px solid rgba(0,0,0,.08);
+      border-radius:18px;
+      overflow:hidden;
+      box-shadow: 0 10px 25px rgba(0,0,0,.06);
+    }
+
+    .room-img{
+      width:100%;
+      height:140px;
+      object-fit:cover;
+      display:block;
+    }
+
+    .room-body{padding:12px 12px 10px;}
+    .room-title{font-weight:800;margin:0 0 6px;}
+    .room-mini{opacity:.75;font-size:14px;margin:0 0 10px;}
+
+    .room-actions{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      justify-content:space-between;
+    }
+
+    .room-pill{
+      font-weight:800;
+      padding:8px 10px;
+      border-radius:999px;
+      background:rgba(255,122,0,.12);
+      color:#a84f00;
+      font-size:13px;
+      white-space:nowrap;
+    }
+
+    /* slide-down */
+    .slide{
+      border-top:1px solid rgba(0,0,0,.08);
+      overflow:hidden;
+      max-height:0;
+      opacity:0;
+      transition:max-height .35s ease, opacity .25s ease;
+      background:rgba(0,0,0,.02);
+    }
+    .slide.open{
+      max-height:220px; /* suficient pt conținut */
+      opacity:1;
+    }
+    .slide-inner{
+      padding:12px;
+      display:flex;
+      gap:10px;
+      flex-direction:column;
+    }
+    .slide-row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      font-size:14px;
+    }
+    .count-big{
+      font-size:28px;
+      font-weight:900;
+      line-height:1;
+    }
+
+    .btn-small{
+      padding:10px 12px;
+      border-radius:14px;
+      border:1px solid rgba(255,122,0,.35);
+      background:transparent;
+      color:#ff7a00;
+      font-weight:700;
+      cursor:pointer;
+    }
+    .btn-small:hover{background:rgba(255,122,0,.08);}
+
+    .hint{
+      margin-top:10px;
+      opacity:.75;
+      font-size:13px;
+    }
+  </style>
+</head>
+
+<body class="disponibilitate">
+
+
+<!-- aici pui navbarul tău identic -->
+<nav class="navbar">
+  <div class="nav-inner">
+
+    <!-- Stânga: Telefon + Locație -->
+    <div class="nav-left">
+      <a class="nav-pill" href="tel:+40735626065" title="Sună">
+        <span class="nav-ico">📞</span>
+        <span>0735 626 065</span>
+      </a>
+
+      <a class="nav-pill" target="_blank" rel="noopener"
+         href="https://www.google.com/maps/search/?api=1&query=DN4%20184"
+
+         title="Deschide în Google Maps">
+        <span class="nav-ico">📍</span>
+        <span>DN4 184</span>
+      </a>
+    </div>
+
+    <!-- Mijloc: Logo premium + nume -->
+    <a class="nav-brand" href="index.html" aria-label="Hotel Căței - Acasă">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-text">
+        <span class="brand-title">Hotel</span>
+        <span class="brand-title brand-title--accent">Căței</span>
+      </span>
+    </a>
+
+    <!-- Dreapta: Meniu -->
+    <ul class="nav-menu">
+      <li><a href="index.html">Acasă</a></li>
+      <li><a href="servicii.html">Servicii</a></li>
+      <li><a href="galerie.html">Galerie</a></li>
+      <li><a href="rezervare.html">Rezervare</a></li>
+    </ul>
+
+  </div>
+</nav>
+
+<main class="page-wrap">
+  <h1 style="margin:0 0 8px;">Verifică disponibilitatea</h1>
+  <p style="margin:0 0 18px;opacity:.85;">
+    Alege perioada și vezi câte camere sunt libere pe fiecare tip.
+  </p>
+
+  <section class="avail-card">
+    <div class="avail-controls">
+      <label>
+        <span>Check-in</span>
+        <input id="d-start" type="date" />
+      </label>
+
+      <label>
+        <span>Check-out</span>
+        <input id="d-end" type="date" />
+      </label>
+
+      <button class="btn" id="btn-check" type="button">Verifică</button>
+      <a class="price-btn price-btn--ghost" href="rezervare.html">Mergi la rezervare</a>
+    </div>
+
+    <div class="room-grid" id="room-grid">
+      <!-- CARD Standard -->
+      <article class="room-card" data-type="standard">
+        <img class="room-img" src="img/standard.jpg" alt="Cameră Standard">
+        <div class="room-body">
+          <h3 class="room-title">Cameră Standard</h3>
+          <p class="room-mini">Confort + program de joacă.</p>
+
+          <div class="room-actions">
+            <span class="room-pill" id="pill-standard">— libere</span>
+            <button class="btn-small" type="button" data-toggle="standard">Detalii</button>
+          </div>
+        </div>
+
+        <div class="slide" id="slide-standard">
+          <div class="slide-inner">
+            <div class="slide-row">
+              <span>Disponibile în perioada aleasă:</span>
+              <span class="count-big" id="count-standard">—</span>
+            </div>
+            <div class="slide-row" style="opacity:.8;">
+              <span>Total camere:</span>
+              <span id="total-standard">—</span>
+            </div>
+            <a class="price-btn" href="rezervare.html" style="width:max-content;">Rezervă Standard</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- CARD Confort -->
+      <article class="room-card" data-type="confort">
+        <img class="room-img" src="img/confort.jpg" alt="Cameră Confort">
+        <div class="room-body">
+          <h3 class="room-title">Cameră Confort</h3>
+          <p class="room-mini">Spațiu mai mare, temperatură optimă.</p>
+
+          <div class="room-actions">
+            <span class="room-pill" id="pill-confort">— libere</span>
+            <button class="btn-small" type="button" data-toggle="confort">Detalii</button>
+          </div>
+        </div>
+
+        <div class="slide" id="slide-confort">
+          <div class="slide-inner">
+            <div class="slide-row">
+              <span>Disponibile în perioada aleasă:</span>
+              <span class="count-big" id="count-confort">—</span>
+            </div>
+            <div class="slide-row" style="opacity:.8;">
+              <span>Total camere:</span>
+              <span id="total-confort">—</span>
+            </div>
+            <a class="price-btn" href="rezervare.html" style="width:max-content;">Rezervă Confort</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- CARD Premium -->
+      <article class="room-card" data-type="premium">
+        <img class="room-img" src="img/premium.jpg" alt="Cameră Premium">
+        <div class="room-body">
+          <h3 class="room-title">Cameră Premium</h3>
+          <p class="room-mini">Mai mult spațiu, rutină personalizată.</p>
+
+          <div class="room-actions">
+            <span class="room-pill" id="pill-premium">— libere</span>
+            <button class="btn-small" type="button" data-toggle="premium">Detalii</button>
+          </div>
+        </div>
+
+        <div class="slide" id="slide-premium">
+          <div class="slide-inner">
+            <div class="slide-row">
+              <span>Disponibile în perioada aleasă:</span>
+              <span class="count-big" id="count-premium">—</span>
+            </div>
+            <div class="slide-row" style="opacity:.8;">
+              <span>Total camere:</span>
+              <span id="total-premium">—</span>
+            </div>
+            <a class="price-btn" href="rezervare.html" style="width:max-content;">Rezervă Premium</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- CARD VIP -->
+      <article class="room-card" data-type="vip">
+        <img class="room-img" src="img/vip.jpg" alt="VIP Dog Room">
+        <div class="room-body">
+          <h3 class="room-title">VIP Dog Room</h3>
+          <p class="room-mini">Confort extra + atenție suplimentară.</p>
+
+          <div class="room-actions">
+            <span class="room-pill" id="pill-vip">— libere</span>
+            <button class="btn-small" type="button" data-toggle="vip">Detalii</button>
+          </div>
+        </div>
+
+        <div class="slide" id="slide-vip">
+          <div class="slide-inner">
+            <div class="slide-row">
+              <span>Disponibile în perioada aleasă:</span>
+              <span class="count-big" id="count-vip">—</span>
+            </div>
+            <div class="slide-row" style="opacity:.8;">
+              <span>Total camere:</span>
+              <span id="total-vip">—</span>
+            </div>
+            <a class="price-btn" href="rezervare.html" style="width:max-content;">Rezervă VIP</a>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <p class="hint">*Disponibilitatea este calculată din rezervările înregistrate în acest browser (demo).</p>
+  </section>
+</main>
+
+<script>
+  // inventar total (setează tu)
+  const INVENTORY = { standard: 5, confort: 3, premium: 2, vip: 1 };
+
+  function parseDateLocal(dateStr) {
+    const [y,m,d] = dateStr.split("-").map(Number);
+    return new Date(y, m-1, d, 12, 0, 0);
+  }
+  function overlaps(aStart, aEnd, bStart, bEnd) {
+    return aStart < bEnd && bStart < aEnd;
+  }
+  function loadBookings() {
+    try { return JSON.parse(localStorage.getItem("bookings_v1") || "[]"); }
+    catch { return []; }
+  }
+  function countBookedByType(start, end) {
+    const bookings = loadBookings();
+    const booked = { standard:0, confort:0, premium:0, vip:0 };
+
+    for (const b of bookings) {
+      const bs = parseDateLocal(b.start);
+      const be = parseDateLocal(b.end);
+      if (overlaps(start, end, bs, be)) {
+        booked[b.type] = (booked[b.type] || 0) + (b.qty || 1);
+      }
+    }
+    return booked;
+  }
+
+  function setUI(type, free, total) {
+    const pill = document.getElementById(`pill-${type}`);
+    const count = document.getElementById(`count-${type}`);
+    const tot = document.getElementById(`total-${type}`);
+
+    if (pill) pill.textContent = `${free} libere`;
+    if (count) count.textContent = free;
+    if (tot) tot.textContent = total;
+
+    // dacă vrei să se deschidă automat slide-ul când e 0:
+    // if (free === 0) document.getElementById(`slide-${type}`)?.classList.add("open");
+  }
+
+  function checkAvailability(openAllSlides = false) {
+    const ds = document.getElementById("d-start").value;
+    const de = document.getElementById("d-end").value;
+
+    if (!ds || !de) return;
+
+    const start = parseDateLocal(ds);
+    const end = parseDateLocal(de);
+
+    if (!(start < end)) {
+      alert("Perioada nu este validă (check-out trebuie să fie după check-in).");
+      return;
+    }
+
+    const booked = countBookedByType(start, end);
+
+    for (const type of Object.keys(INVENTORY)) {
+      const total = INVENTORY[type];
+      const free = Math.max(0, total - (booked[type] || 0));
+      setUI(type, free, total);
+
+      const slide = document.getElementById(`slide-${type}`);
+      if (openAllSlides && slide) slide.classList.add("open");
+    }
+  }
+
+  // toggle slide-down la butonul "Detalii"
+  document.querySelectorAll("[data-toggle]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const type = btn.getAttribute("data-toggle");
+      const slide = document.getElementById(`slide-${type}`);
+      if (!slide) return;
+      slide.classList.toggle("open");
+    });
+  });
+
+  // defaults: azi + maine
+  const dStart = document.getElementById("d-start");
+  const dEnd = document.getElementById("d-end");
+  const today = new Date();
+  const yyyy = today.getFullYear();
+  const mm = String(today.getMonth()+1).padStart(2,"0");
+  const dd = String(today.getDate()).padStart(2,"0");
+  dStart.value = `${yyyy}-${mm}-${dd}`;
+
+  const tomorrow = new Date(today);
+  tomorrow.setDate(today.getDate()+1);
+  const yyyy2 = tomorrow.getFullYear();
+  const mm2 = String(tomorrow.getMonth()+1).padStart(2,"0");
+  const dd2 = String(tomorrow.getDate()).padStart(2,"0");
+  dEnd.value = `${yyyy2}-${mm2}-${dd2}`;
+
+  document.getElementById("btn-check").addEventListener("click", () => {
+    // dacă vrei ca după click să se deschidă toate slide-urile automat:
+    checkAvailability(true);
+  });
+
+  // prima verificare
+  checkAvailability(false);
+</script>
+
+</body>
+</html>
