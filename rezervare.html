@@ -1,190 +1,218 @@
 <!DOCTYPE html>
 <html lang="ro">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <title>Rezervare - Hotel pentru Căței</title>
 
-    <meta charset="UTF-8">
-    <title>Rezervare - Hotel pentru Căței</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body class="rezervare">
 
 <nav class="navbar">
-  <div class="navbar-inner">
+  <div class="nav-inner">
 
-    <!-- Stânga: Contact -->
-    <div class="nav-info">
-      <span class="nav-item">
-        📞 <a href="tel:+40735626065">0735 626 065</a>
-      </span>
-      <span class="dot"></span>
-      <span class="nav-item">
-        📍 Str. Decebal nr. 2
-      </span>
+    <!-- Stânga: Telefon + Locație -->
+    <div class="nav-left">
+      <a class="nav-pill" href="tel:+40735626065" title="Sună">
+        <span class="nav-ico">📞</span>
+        <span>0735 626 065</span>
+      </a>
+
+      <!-- FIX: href corect -->
+      <a class="nav-pill" target="_blank" rel="noopener"
+         href="https://www.google.com/maps/search/?api=1&query=DN4%20184"
+         title="Deschide în Google Maps">
+        <span class="nav-ico">📍</span>
+        <span>DN4 184</span>
+      </a>
     </div>
 
-    <!-- Mijloc: Logo -->
-    <div class="logo">🐶 Hotel Căței</div>
+    <!-- Mijloc: Logo premium + nume -->
+    <a class="nav-brand" href="index.html" aria-label="Hotel Căței - Acasă">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-text">
+        <span class="brand-title">Hotel</span>
+        <span class="brand-title brand-title--accent">Căței</span>
+      </span>
+    </a>
 
     <!-- Dreapta: Meniu -->
-    <ul class="nav-links">
+    <ul class="nav-menu">
       <li><a href="index.html">Acasă</a></li>
       <li><a href="servicii.html">Servicii</a></li>
       <li><a href="galerie.html">Galerie</a></li>
-      <li><a href="rezervare.html">Rezervare</a></li>
+      <li><a href="rezervare.html" class="is-active">Rezervare</a></li>
     </ul>
 
   </div>
 </nav>
 
-
 <section class="container glass-section">
-    <h2>Rezervare online</h2>
+  <h2>Rezervare online</h2>
 
-    <form class="form" onsubmit="trimiteWhatsApp(event)">
-        <input type="text" id="nume" placeholder="Nume" required>
-        <input type="tel" id="telefon" placeholder="Telefon" required>
-        <input type="date" id="start" required>
-        <input type="date" id="end" required>
-        <textarea id="mesaj" placeholder="Detalii despre cățel"></textarea>
-        <button type="submit">Trimite pe WhatsApp</button>
-    </form>
+  <!-- buton către disponibilitate -->
+  <div style="margin: 10px 0 14px; display:flex; gap:10px; flex-wrap:wrap;">
+    <a class="price-btn" href="disponibilitate.html">Verifică disponibilitatea</a>
+    <span style="opacity:.75; font-size:14px;">
+      (Dacă nu sunt camere, verifică aici perioade alternative.)
+    </span>
+  </div>
+
+  <!-- mesaj pentru erori / succes -->
+  <div id="reserve-msg"></div>
+
+  <form id="reserve-form" class="form">
+    <input type="text" id="nume" placeholder="Nume" required>
+    <input type="tel" id="telefon" placeholder="Telefon" required>
+
+    <input type="date" id="start" required>
+    <input type="date" id="end" required>
+
+    <!-- Tip cameră -->
+    <select id="tip-camera" required>
+      <option value="" disabled selected>Alege tip cameră</option>
+      <option value="standard">Cameră Standard</option>
+      <option value="confort">Cameră Confort</option>
+      <option value="premium">Cameră Premium</option>
+      <option value="vip">VIP Dog Room</option>
+    </select>
+
+    <!-- Cantitate -->
+    <input type="number" id="cantitate" min="1" value="1" required>
+
+    <textarea id="mesaj" placeholder="Detalii despre cățel"></textarea>
+
+    <button type="submit">Trimite pe WhatsApp</button>
+  </form>
 </section>
 
+<div id="footer-placeholder"></div>
+
+
+<!-- app.js (navbar hide etc) -->
+<script src="app.js" defer></script>
+
+<!-- disponibilitate + rezervare (demo localStorage) -->
 <script>
-function trimiteWhatsApp(e) {
+  // câte camere ai în total pe tip (setează tu)
+  const INVENTORY = { standard: 5, confort: 3, premium: 2, vip: 1 };
+
+  function parseDateLocal(dateStr) {
+    const [y, m, d] = dateStr.split("-").map(Number);
+    return new Date(y, m - 1, d, 12, 0, 0); // prânz -> safe timezone
+  }
+
+  function overlaps(aStart, aEnd, bStart, bEnd) {
+    // [start, end) ca la hotel
+    return aStart < bEnd && bStart < aEnd;
+  }
+
+  function loadBookings() {
+    try { return JSON.parse(localStorage.getItem("bookings_v1") || "[]"); }
+    catch { return []; }
+  }
+
+  function saveBookings(bookings) {
+    localStorage.setItem("bookings_v1", JSON.stringify(bookings));
+  }
+
+  function bookedQtyFor(type, start, end) {
+    const bookings = loadBookings();
+    let qty = 0;
+    for (const b of bookings) {
+      if (b.type !== type) continue;
+      const bs = parseDateLocal(b.start);
+      const be = parseDateLocal(b.end);
+      if (overlaps(start, end, bs, be)) qty += (b.qty || 1);
+    }
+    return qty;
+  }
+
+  function showMsg(html, isError = false) {
+    const box = document.getElementById("reserve-msg");
+    if (!box) return;
+    box.innerHTML = html;
+    box.style.padding = "12px";
+    box.style.borderRadius = "14px";
+    box.style.margin = "10px 0 14px";
+    box.style.background = isError ? "rgba(255,0,0,.08)" : "rgba(0,180,80,.10)";
+  }
+
+  // submit rezervare -> verifică stoc -> apoi trimite WhatsApp
+  const form = document.getElementById("reserve-form");
+  form.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    let nume = document.getElementById("nume").value;
-    let telefon = document.getElementById("telefon").value;
-    let start = document.getElementById("start").value;
-    let end = document.getElementById("end").value;
-    let mesaj = document.getElementById("mesaj").value;
+    const nume = document.getElementById("nume").value.trim();
+    const telefon = document.getElementById("telefon").value.trim();
+    const startStr = document.getElementById("start").value;
+    const endStr = document.getElementById("end").value;
+    const type = document.getElementById("tip-camera").value;
+    const qty = Number(document.getElementById("cantitate").value || 1);
+    const mesaj = document.getElementById("mesaj").value.trim();
 
-    let text = `Salut! Vreau o rezervare:
-Nume: ${nume}
-Telefon: ${telefon}
-Perioada: ${start} - ${end}
-Detalii: ${mesaj}`;
+    if (!nume || !telefon || !startStr || !endStr || !type || qty < 1) {
+      showMsg("Completează toate câmpurile obligatorii.", true);
+      return;
+    }
 
-    let url = "https://wa.me/40735626065?text=" + encodeURIComponent(text);
-    window.open(url, "_blank");
-}
-</script>
-<footer class="site-footer">
-  <div class="footer-wrap">
+    const start = parseDateLocal(startStr);
+    const end = parseDateLocal(endStr);
 
-    <!-- BRAND -->
-    <div class="footer-col brand">
-      <div class="footer-logo">🐶 Hotel Căței</div>
-      <p class="footer-desc">
-        Regim hotelier pentru căței, cu grijă, confort și siguranță. Update-uri zilnice, opțional camere video și transport.
-      </p>
+    if (!(start < end)) {
+      showMsg("Perioada nu este validă (check-out trebuie să fie după check-in).", true);
+      return;
+    }
 
-      <a class="footer-cta" href="#" id="footer-whatsapp">
-        Contact pe WhatsApp
-        <span class="footer-cta-glow" aria-hidden="true"></span>
-      </a>
+    const alreadyBooked = bookedQtyFor(type, start, end);
+    const free = (INVENTORY[type] ?? 0) - alreadyBooked;
 
-      <div class="footer-social">
-        <a href="#" aria-label="Instagram" title="Instagram">⌁</a>
-        <a href="#" aria-label="Facebook" title="Facebook">f</a>
-        <a href="#" aria-label="TikTok" title="TikTok">♪</a>
-      </div>
-    </div>
+    if (free < qty) {
+      showMsg(
+        `Ne pare rău, nu mai avem camere disponibile în perioada selectată.<br>
+         Te rugăm să mergi la secțiunea <a href="disponibilitate.html"><strong>Verifică disponibilitatea</strong></a>
+         pentru alte perioade.`,
+        true
+      );
+      return;
+    }
 
-    <!-- LINKURI -->
-    <div class="footer-col links">
-      <h4>Linkuri rapide</h4>
-      <ul>
-        <li><a href="index.html">Acasă</a></li>
-        <li><a href="servicii.html">Servicii</a></li>
-        <li><a href="galerie.html">Galerie</a></li>
-        <li><a href="rezervare.html">Rezervare</a></li>
-      </ul>
-    </div>
-
-    <!-- INFO -->
-    <div class="footer-col info">
-      <h4>Informații</h4>
-      <div class="info-card">
-        <div class="info-row">
-          <span class="k">📍 Locație</span>
-          <span class="v">
-            <a target="_blank" rel="noopener"
-              href="https://www.google.com/maps/search/?api=1&query=Strada+Decebal+nr+2">
-              Str. Decebal nr. 2
-            </a>
-          </span>
-        </div>
-        <div class="info-row">
-          <span class="k">📞 Telefon</span>
-          <span class="v"><a href="tel:+40735626065">0735 626 065</a></span>
-        </div>
-        <div class="info-row">
-          <span class="k">🕒 Program</span>
-          <span class="v">09:00 – 20:00</span>
-        </div>
-      </div>
-
-      <p class="small-links">
-        <a href="#">Politică de confidențialitate</a> •
-        <a href="#">Termeni & condiții</a> •
-        <a href="#">Cookies</a>
-      </p>
-    </div>
-
-    <!-- NEWSLETTER -->
-    <div class="footer-col newsletter">
-      <h4>Noutăți & oferte</h4>
-      <p class="muted">Primești ocazional update-uri (fără spam). Doar lucruri utile.</p>
-
-      <form class="footer-form" onsubmit="return false;">
-        <input type="email" placeholder="Email" aria-label="Email">
-        <label class="check">
-          <input type="checkbox">
-          Accept Termeni & condiții
-        </label>
-        <button type="button" class="footer-btn">Abonează-te</button>
-      </form>
-
-      <div class="footer-badge">
-        <span>🐾 Premium care</span>
-        <span>🧼 Igienă zilnică</span>
-        <span>🚗 Transport</span>
-      </div>
-    </div>
-
-  </div>
-
-  <div class="footer-bottom">
-    <p>© <span id="year"></span> Hotel Căței • Toate drepturile rezervate.</p>
-  </div>
-</footer>
-
-<script>
-  // an curent
-  document.getElementById("year").textContent = new Date().getFullYear();
-
-  // WhatsApp footer
-  const footerBtn = document.getElementById("footer-whatsapp");
-  if (footerBtn) {
-    footerBtn.addEventListener("click", (e) => {
-      e.preventDefault();
-      const phone = "40735626065";
-      const text =
-        `Salut! Aș vrea mai multe detalii despre cazare pentru cățel.\n\n` +
-        `• Perioada: \n` +
-        `• Talie / rasă: \n` +
-        `• Alte detalii: `;
-      window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`, "_blank");
+    // înregistrează rezervarea (demo local)
+    const bookings = loadBookings();
+    bookings.push({
+      id: (crypto && crypto.randomUUID) ? crypto.randomUUID() : String(Date.now()),
+      type,
+      qty,
+      start: startStr,
+      end: endStr,
+      createdAt: new Date().toISOString()
     });
-  }
+    saveBookings(bookings);
+
+    // trimite WhatsApp
+    const labels = { standard:"Standard", confort:"Confort", premium:"Premium", vip:"VIP" };
+    const text =
+      `Salut! Vreau să fac o rezervare.\n\n` +
+      `Nume: ${nume}\n` +
+      `Telefon: ${telefon}\n` +
+      `Perioada: ${startStr} - ${endStr}\n` +
+      `Tip cameră: ${labels[type]}\n` +
+      `Număr camere: ${qty}\n` +
+      `Detalii: ${mesaj || "-"}\n\n` +
+      `Mulțumesc!`;
+
+    const phone = "40735626065";
+    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`, "_blank");
+
+    showMsg("Rezervarea a fost înregistrată (demo) și s-a deschis WhatsApp. Mulțumim!");
+    form.reset();
+  });
 </script>
 
 </body>
