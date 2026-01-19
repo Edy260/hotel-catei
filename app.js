@@ -124,3 +124,127 @@ document.addEventListener("DOMContentLoaded", () => {
       console.error("Footer load error:", err);
     });
 });
+/* ======================================
+   TARIFE SEZON – ACCORDION (slide down)
+====================================== */
+document.addEventListener("DOMContentLoaded", () => {
+  const accordion = document.getElementById("seasonAccordion");
+  if (!accordion) return;
+
+  const cards = Array.from(
+    accordion.querySelectorAll(".season-card.is-collapsible")
+  );
+
+  function closeCard(card) {
+    card.classList.remove("is-open");
+    const btn = card.querySelector(".season-toggle");
+    const panel = card.querySelector(".season-panel");
+    if (btn) btn.setAttribute("aria-expanded", "false");
+    if (panel) {
+      panel.style.maxHeight = "0px";
+      panel.setAttribute("aria-hidden", "true");
+    }
+  }
+
+  function openCard(card) {
+    card.classList.add("is-open");
+    const btn = card.querySelector(".season-toggle");
+    const panel = card.querySelector(".season-panel");
+    if (btn) btn.setAttribute("aria-expanded", "true");
+    if (panel) {
+      panel.setAttribute("aria-hidden", "false");
+      panel.style.maxHeight = panel.scrollHeight + "px"; // slide smooth
+    }
+  }
+
+  // init: inchide toate
+  cards.forEach((card) => {
+    const btn = card.querySelector(".season-toggle");
+    const panel = card.querySelector(".season-panel");
+    if (!btn || !panel) return;
+
+    panel.style.maxHeight = "0px";
+    panel.setAttribute("aria-hidden", "true");
+    btn.setAttribute("aria-expanded", "false");
+
+    btn.addEventListener("click", () => {
+      const isOpen = card.classList.contains("is-open");
+
+      // inchide restul
+      cards.forEach((c) => {
+        if (c !== card) closeCard(c);
+      });
+
+      // toggle curent
+      if (isOpen) closeCard(card);
+      else openCard(card);
+    });
+  });
+
+  // resize: recalc pentru cel deschis
+  window.addEventListener("resize", () => {
+    const openPanel = accordion.querySelector(".season-card.is-open .season-panel");
+    if (openPanel) openPanel.style.maxHeight = openPanel.scrollHeight + "px";
+  });
+});
+/* ======================================
+   SERVICII – ACCORDION (slide down)
+====================================== */
+document.addEventListener("DOMContentLoaded", () => {
+  const accordions = document.querySelectorAll(".service-accordion");
+  if (!accordions.length) return;
+
+  accordions.forEach((acc) => {
+    const items = Array.from(acc.querySelectorAll(".service-item"));
+
+    function closeItem(item) {
+      item.classList.remove("open");
+      const btn = item.querySelector(".service-btn");
+      const panel = item.querySelector(".service-panel");
+      if (btn) btn.setAttribute("aria-expanded", "false");
+      if (panel) {
+        panel.style.maxHeight = "0px";
+        panel.setAttribute("aria-hidden", "true");
+      }
+    }
+
+    function openItem(item) {
+      item.classList.add("open");
+      const btn = item.querySelector(".service-btn");
+      const panel = item.querySelector(".service-panel");
+      if (btn) btn.setAttribute("aria-expanded", "true");
+      if (panel) {
+        panel.setAttribute("aria-hidden", "false");
+        panel.style.maxHeight = panel.scrollHeight + "px";
+      }
+    }
+
+    // init inchis
+    items.forEach((item) => {
+      const btn = item.querySelector(".service-btn");
+      const panel = item.querySelector(".service-panel");
+      if (!btn || !panel) return;
+
+      closeItem(item);
+
+      btn.addEventListener("click", () => {
+        const isOpen = item.classList.contains("open");
+
+        // inchide restul DOAR in acelasi accordion
+        items.forEach((it) => {
+          if (it !== item) closeItem(it);
+        });
+
+        // toggle curent
+        if (isOpen) closeItem(item);
+        else openItem(item);
+      });
+    });
+
+    // resize: recalc pentru cel deschis
+    window.addEventListener("resize", () => {
+      const openPanel = acc.querySelector(".service-item.open .service-panel");
+      if (openPanel) openPanel.style.maxHeight = openPanel.scrollHeight + "px";
+    });
+  });
+});
