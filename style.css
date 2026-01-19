@@ -2780,3 +2780,531 @@ body.disponibilitate .navbar {
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 }
+/* =========================
+   LOGO ROTUND ÎN NAVBAR
+========================= */
+.brand-logo-wrap{
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #000; /* fundal negru pt logo-ul tău */
+  box-shadow:
+    0 10px 28px rgba(0,0,0,0.25),
+    0 0 0 3px rgba(255,152,0,0.35); /* contur premium */
+}
+
+.brand-logo{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* hover subtil */
+.nav-brand:hover .brand-logo-wrap{
+  transform: translateY(-1px);
+  box-shadow:
+    0 14px 36px rgba(0,0,0,0.35),
+    0 0 0 4px rgba(255,152,0,0.45);
+}
+
+/* mobil */
+@media (max-width: 520px){
+  .brand-logo-wrap{
+    width: 44px;
+    height: 44px;
+  }
+}
+/* =========================================================
+   TARIFE SEZON 2026 – CADRAN UNIC (calendar / timeline)
+========================================================= */
+.season-tariffs{
+  padding: 22px 0 70px;
+}
+
+.season-tariffs__wrap{
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 22px;
+}
+
+.season-tariffs__head{
+  margin: 0 0 14px;
+  padding: 22px 22px;
+  border-radius: 22px;
+
+  background: rgba(0,0,0,0.30);
+  border: 1px solid rgba(255,255,255,0.14);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  box-shadow: 0 18px 50px rgba(0,0,0,0.35);
+  overflow: hidden;
+  position: relative;
+}
+
+.season-tariffs__head::before{
+  content:"";
+  position:absolute;
+  inset:-60px;
+  background:
+    radial-gradient(circle at 18% 20%, rgba(255,152,0,0.20), transparent 55%),
+    radial-gradient(circle at 80% 25%, rgba(255,255,255,0.10), transparent 58%),
+    radial-gradient(circle at 55% 120%, rgba(255,106,0,0.18), transparent 55%);
+  filter: blur(14px);
+  opacity: .95;
+  pointer-events: none;
+}
+
+.season-tariffs__head > *{ position: relative; z-index: 1; }
+
+.season-tariffs__kicker{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.92);
+  font-weight: 700;
+  width: fit-content;
+  margin-bottom: 10px;
+}
+
+.kicker-dot{
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ff9800, #ff6a00);
+  box-shadow: 0 0 0 5px rgba(255,152,0,0.14);
+}
+
+.season-tariffs__head h2{
+  margin: 0 0 6px;
+  color: #fff;
+  font-family: "Poppins", sans-serif;
+  font-weight: 900;
+  font-size: clamp(1.6rem, 3.2vw, 2.3rem);
+  letter-spacing: .2px;
+}
+
+.season-tariffs__sub{
+  margin: 0;
+  color: rgba(255,255,255,0.88);
+  line-height: 1.55;
+  max-width: 90ch;
+}
+
+/* grid */
+.season-tariffs__grid{
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 14px;
+}
+
+/* card */
+.season-card{
+  border-radius: 22px;
+  padding: 16px 16px;
+
+  background: rgba(0,0,0,0.28);
+  border: 1px solid rgba(255,255,255,0.14);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  box-shadow: 0 16px 44px rgba(0,0,0,0.32);
+  position: relative;
+  overflow: hidden;
+
+  transition: transform 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
+}
+
+.season-card:hover{
+  transform: translateY(-4px);
+  border-color: rgba(255,152,0,0.30);
+  box-shadow: 0 22px 58px rgba(0,0,0,0.42);
+}
+
+/* top row */
+.season-card__top{
+  display:flex;
+  align-items:center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.season-badge{
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 900;
+  color: rgba(255,255,255,0.95);
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+}
+
+.season-chip{
+  padding: 7px 10px;
+  border-radius: 999px;
+  font-weight: 800;
+  color: rgba(255,255,255,0.92);
+  background: rgba(0,0,0,0.22);
+  border: 1px solid rgba(255,255,255,0.12);
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+/* timeline list */
+.season-lines{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.season-lines li{
+  display: grid;
+  grid-template-columns: 14px 1fr;
+  gap: 10px;
+  align-items: start;
+
+  padding: 10px 12px;
+  border-radius: 16px;
+
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.10);
+  color: rgba(255,255,255,0.92);
+  line-height: 1.35;
+}
+
+.line-dot{
+  width: 10px;
+  height: 10px;
+  margin-top: 4px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ff9800, #ff6a00);
+  box-shadow: 0 0 0 5px rgba(255,152,0,0.12);
+}
+
+.line-text strong{
+  font-family: "Poppins", sans-serif;
+  font-weight: 900;
+}
+
+/* peak variant */
+.season-card--peak{
+  background:
+    linear-gradient(180deg, rgba(255,152,0,0.12), rgba(0,0,0,0.28));
+  border-color: rgba(255,152,0,0.22);
+}
+.season-badge--peak{
+  background: linear-gradient(135deg, rgba(255,152,0,0.28), rgba(255,106,0,0.18));
+  border-color: rgba(255,152,0,0.32);
+}
+
+/* standard variant */
+.season-badge--standard{
+  background: rgba(255,255,255,0.10);
+}
+
+.season-note{
+  margin: 0;
+  padding: 12px 12px;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.10);
+  color: rgba(255,255,255,0.90);
+  line-height: 1.55;
+}
+
+.season-foot{
+  margin-top: 12px;
+  display:flex;
+  gap: 10px;
+  align-items:flex-start;
+  color: rgba(255,255,255,0.90);
+  font-size: 13px;
+}
+.season-foot .star{
+  color: rgba(255,152,0,0.95);
+  font-weight: 900;
+}
+
+/* responsive */
+@media (max-width: 980px){
+  .season-tariffs__grid{
+    grid-template-columns: 1fr;
+  }
+}
+/* ===============================
+   ACCORDION – SLIDE DOWN TARIFE
+=============================== */
+
+.season-card.is-collapsible{
+  padding: 0;
+}
+
+/* butonul pe care dai click */
+.season-toggle{
+  width: 100%;
+  text-align: left;
+  padding: 16px;
+  border-radius: 22px;
+  background: transparent;
+  border: 0;
+  color: inherit;
+  cursor: pointer;
+  display: grid;
+  gap: 12px;
+  position: relative;
+}
+
+/* sageata */
+.season-chevron{
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.14);
+  transition: transform 0.3s ease;
+}
+
+/* panel ascuns */
+.season-panel{
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease;
+}
+
+/* continut panel */
+.season-panel__inner{
+  padding: 0 16px 16px;
+}
+
+/* rand pret */
+.season-price-row{
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: rgba(0,0,0,0.18);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: #fff;
+}
+
+.season-price-row b{
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+/* stare deschisa */
+.season-card.is-open .season-chevron{
+  transform: rotate(180deg);
+}
+
+.season-card.is-open{
+  border-color: rgba(255,152,0,0.35);
+  box-shadow: 0 22px 60px rgba(0,0,0,0.45);
+}
+/* === TARIFE SEZON – TEXT MAI VIZIBIL === */
+.season-card,
+.season-lines li,
+.season-price-row,
+.season-panel__hint,
+.season-panel__note,
+.season-note,
+.season-foot{
+  color: rgba(255,255,255,0.96);
+}
+.season-badge,
+.season-badge--peak,
+.season-badge--standard{
+  color: #fff;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.55);
+}
+
+.season-chip{
+  color: #fff;
+  font-weight: 900;
+}
+.season-lines li{
+  background: rgba(0,0,0,0.38); /* mai închis, textul iese mai tare */
+  border: 1px solid rgba(255,255,255,0.16);
+}
+
+.line-text{
+  color: rgba(255,255,255,0.97);
+}
+
+.line-text strong{
+  color: #fff;
+}
+.season-price-row{
+  background: rgba(0,0,0,0.42);
+  border: 1px solid rgba(255,255,255,0.18);
+}
+
+.season-price-row span{
+  color: rgba(255,255,255,0.96);
+}
+
+.season-price-row b{
+  color: #fff;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.6);
+}
+.season-price-row b{
+  background: linear-gradient(135deg, #ffb347, #ff7a00);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+/* ===== FIX: muta sageata, sa nu mai intre peste text ===== */
+.season-toggle{
+  padding-right: 16px; /* nu mai avem nevoie de spatiu extra pt absolut */
+}
+
+/* anulam pozitionarea absoluta */
+.season-chevron{
+  position: static !important;
+  width: 34px;
+  height: 34px;
+  margin-left: auto;      /* o impinge in dreapta */
+  margin-top: 8px;        /* o coboara sub continut */
+  transform: none;        /* rotirea o facem separat mai jos */
+}
+
+/* cand e deschis, rotim doar iconita */
+.season-card.is-open .season-chevron{
+  transform: rotate(180deg);
+}
+/* =========================
+   SERVICII – ACCORDION SLIDE
+========================= */
+
+/* containerul cu butoane */
+.service-accordion{
+  display: grid;
+  gap: 14px;
+}
+
+/* fiecare item (card) */
+.service-item{
+  border-radius: 20px;
+  overflow: hidden;
+  background: rgba(0,0,0,0.26);
+  border: 1px solid rgba(255,255,255,0.14);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 16px 44px rgba(0,0,0,0.32);
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.service-item:hover{
+  transform: translateY(-3px);
+  border-color: rgba(255,152,0,0.30);
+  box-shadow: 0 22px 58px rgba(0,0,0,0.42);
+}
+
+/* butonul (bara de sus) */
+.service-btn{
+  width: 100%;
+  text-align: left;
+  padding: 16px 16px;
+  border: 0;
+  cursor: pointer;
+  background: transparent;
+  color: rgba(255,255,255,0.96);
+
+  font-family: "Poppins", sans-serif;
+  font-weight: 800;
+  font-size: 1.02rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+/* sageata (adaugata din CSS, nu trebuie in HTML) */
+.service-btn::after{
+  content: "⌄";
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.14);
+  color: rgba(255,255,255,0.95);
+
+  transition: transform 220ms ease, background 220ms ease, border-color 220ms ease;
+  flex: 0 0 auto;
+}
+
+/* la deschis - rotim sageata */
+.service-item.open .service-btn::after{
+  transform: rotate(180deg);
+  background: rgba(255,152,0,0.14);
+  border-color: rgba(255,152,0,0.22);
+}
+
+/* panel slide */
+.service-panel{
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 320ms ease;
+}
+
+/* continutul din panel */
+.service-panel__inner{
+  padding: 0 16px 16px;
+  color: rgba(255,255,255,0.90);
+  line-height: 1.6;
+  font-family: "Inter", sans-serif;
+  font-size: 0.96rem;
+
+  background: rgba(0,0,0,0.18);
+  border-top: 1px solid rgba(255,255,255,0.10);
+}
+
+/* un mic accent cand e deschis */
+.service-item.open{
+  border-color: rgba(255,152,0,0.34);
+}
+/* Hint mic lângă buton (rezervare) – vizibil pe fundal dark */
+.reserve-hint{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  font-size: 14px;
+  line-height: 1.35;
+
+  color: rgba(255,255,255,0.95);
+  text-shadow: 0 2px 12px rgba(0,0,0,0.75);
+
+  padding: 10px 12px;
+  border-radius: 999px;
+
+  background: rgba(0,0,0,0.35);
+  border: 1px solid rgba(255,255,255,0.16);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
