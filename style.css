@@ -3308,3 +3308,39 @@ body.disponibilitate .navbar {
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
+/* =========================
+   LOGO GLOBAL – NAVBAR
+========================= */
+.nav-brand{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.brand-logo-wrap{
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  overflow: hidden;
+
+  background: #000;
+  border: 2px solid rgba(255,168,0,0.6);
+  box-shadow:
+    0 8px 22px rgba(0,0,0,0.35);
+}
+
+.brand-logo{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* mobil */
+@media (max-width: 520px){
+  .brand-logo-wrap{
+    width: 38px;
+    height: 38px;
+  }
+}
