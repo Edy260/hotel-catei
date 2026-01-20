@@ -3344,3 +3344,282 @@ body.disponibilitate .navbar {
     height: 38px;
   }
 }
+/* ======================================
+   MOBILE FIX PACK (global)
+====================================== */
+
+/* 1) Siguranță: imagini + layout */
+img, video { max-width: 100%; height: auto; display: block; }
+html { -webkit-text-size-adjust: 100%; }
+body { overflow-x: hidden; }
+
+/* 2) Container: să nu fie prea lat pe mobil */
+.container,
+.nav-inner,
+.dog-pricing__wrap,
+.season-tariffs__wrap,
+.dog-signature__wrap{
+  width: min(1120px, calc(100% - 28px));
+  margin: 0 auto;
+}
+
+/* 3) Touch targets mai mari */
+a, button, input, select, textarea{
+  touch-action: manipulation;
+}
+button, .btn, .price-btn{
+  min-height: 44px; /* standard mobile */
+}
+
+/* 4) Form input zoom fix (iOS) */
+input, select, textarea{
+  font-size: 16px; /* previne zoom automatic pe iPhone */
+}
+
+/* ======================================
+   NAVBAR – MOBILE
+====================================== */
+@media (max-width: 900px){
+  body{ padding-top: 96px; } /* navbar sticky */
+
+  .nav-inner{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 10px 12px;
+    justify-items: center;
+  }
+
+  .nav-left{
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .nav-menu{
+    justify-self: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .nav-menu a{
+    padding: 10px 12px;
+    border-radius: 14px;
+    font-size: 14px;
+  }
+}
+
+/* ======================================
+   HERO / HEADERS – MOBILE
+====================================== */
+@media (max-width: 720px){
+  .hero.hero-top{
+    min-height: 52vh;
+    padding-top: 110px;
+    padding-bottom: 22px;
+  }
+
+  .hero-card{
+    width: min(560px, calc(100% - 22px));
+    padding: 18px 16px;
+    border-radius: 18px;
+  }
+
+  .hero-card h1{ font-size: 1.7rem; }
+  .hero-card p{ font-size: 1rem; }
+
+  .btn{ width: 100%; justify-content: center; }
+}
+
+/* ======================================
+   TARIFE (dog-pricing) – MOBILE
+====================================== */
+@media (max-width: 980px){
+  .dog-pricing__grid{ grid-template-columns: 1fr !important; }
+}
+
+@media (max-width: 720px){
+  .dog-pricing{ padding: 44px 0 58px; }
+  .price-box{ padding: 16px 14px; border-radius: 18px; }
+  .price-row{ gap: 10px; }
+  .price-btn{ width: 100%; }
+}
+
+/* ======================================
+   TARIFE SEZON (accordion) – MOBILE
+====================================== */
+@media (max-width: 980px){
+  .season-tariffs__grid{ grid-template-columns: 1fr !important; }
+}
+@media (max-width: 520px){
+  .season-toggle{ padding: 14px 14px; }
+  .season-lines li{ padding: 10px; }
+}
+
+/* ======================================
+   SERVICII – MOBILE
+====================================== */
+@media (max-width: 980px){
+  .cards{ grid-template-columns: 1fr !important; }
+}
+
+@media (max-width: 720px){
+  .services-section{
+    padding: 26px 16px;
+    border-radius: 22px;
+  }
+
+  .service-btn{
+    font-size: 1rem;
+    padding: 14px 14px;
+  }
+
+  .service-panel__inner{
+    padding: 0 14px 14px;
+    font-size: 0.95rem;
+  }
+}
+
+/* ======================================
+   GALERIE – MOBILE
+====================================== */
+@media (max-width: 720px){
+  .gallery{
+    grid-template-columns: 1fr !important;
+    gap: 12px;
+  }
+
+  .gallery img{
+    border-radius: 18px;
+  }
+}
+
+/* ======================================
+   REZERVARE (form) – MOBILE
+====================================== */
+@media (max-width: 720px){
+  .form{
+    width: calc(100% - 22px);
+    padding: 16px 14px;
+    border-radius: 18px;
+  }
+
+  .form input,
+  .form select,
+  .form textarea,
+  .form button{
+    width: 100%;
+  }
+}
+/* ===== FIX NAVBAR MOBILE: lipit sus pe toate paginile ===== */
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+:root{
+  --nav-h: 72px; /* fallback, va fi suprascris din JS */
+}
+
+/* fortam navbar-ul sa fie FIXED chiar daca exista media queries care il schimba */
+.navbar{
+  position: fixed !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  margin: 0 !important;
+  top: 0 !important;
+  z-index: 9999 !important;
+}
+
+/* iPhone / notch safe-area */
+@supports (top: max(0px)) {
+  .navbar{
+    top: max(env(safe-area-inset-top), 0px) !important;
+  }
+  body{
+    padding-top: calc(var(--nav-h) + max(env(safe-area-inset-top), 0px));
+  }
+}
+
+/* fallback (fara safe-area) */
+body{
+  padding-top: var(--nav-h);
+}
+/* ===== FIX: continutul sa nu intre sub navbar (mai ales pe mobil) ===== */
+
+/* inaltimea reala vine din JS in --nav-h; fallback daca JS nu a rulat inca */
+:root { --nav-h: 72px; }
+
+/* aplica offset DOAR paginilor cu navbar fixed */
+body{
+  padding-top: var(--nav-h);
+}
+
+/* daca ai safe-area (iPhone notch) */
+@supports (padding: max(0px)) {
+  body{
+    padding-top: calc(var(--nav-h) + max(env(safe-area-inset-top), 0px));
+  }
+}
+
+/* IMPORTANT: pe pagina Servicii, primul bloc are probabil un padding-top/margin-top mic.
+   Forteaza un spatiu extra doar acolo, ca sa nu se suprapuna titlul */
+body.servicii main,
+body.servicii .page,
+body.servicii .content,
+body.servicii .services,
+body.servicii .services-hero,
+body.servicii .services-wrap,
+body.servicii .service-section{
+  padding-top: 12px;
+}
+
+/* daca "Serviciile noastre" e chiar primul heading sub navbar, asigura-te ca are spatiu */
+body.servicii h1,
+body.servicii h2:first-of-type{
+  margin-top: 0;
+  padding-top: 8px;
+}
+
+/* asigura ca navbarul nu ia click/scroll peste continut doar vizual */
+.navbar{
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  z-index: 9999 !important;
+}
+/* ===== SPATIU FRUMOS SUB NAVBAR (desktop + mobil) ===== */
+:root{
+  --nav-h: 72px;      /* setat din JS */
+  --nav-gap: 28px;    /* spatiu vizibil sub navbar */
+}
+
+/* daca ai fixed navbar, asta face continutul sa nu fie "lipit" */
+body{
+  padding-top: calc(var(--nav-h) + var(--nav-gap));
+}
+
+/* iPhone / notch safe-area */
+@supports (padding: max(0px)) {
+  body{
+    padding-top: calc(var(--nav-h) + var(--nav-gap) + max(env(safe-area-inset-top), 0px));
+  }
+}
+
+/* pe mobil, un pic mai mult aer */
+@media (max-width: 640px){
+  :root{ --nav-gap: 34px; }
+}
+
+/* optional: daca primul bloc are deja padding mare, poti reduce doar acolo
+   (lasa asta doar daca ti se pare prea mult spatiu) */
+/*
+.hero-top, .dog-signature, .services-hero, .gallery-hero, .rezervare-hero, .page-hero{
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+*/
